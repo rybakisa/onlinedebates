@@ -97,6 +97,12 @@ iframe {
 .block-chat {
     height: 25rem;
 }
+.block-chat__input {
+    width: 100%;
+    border: solid 1px #e6e6e6;
+    height: 52px;
+    border-radius: 10px;
+}
 .block-chat::after {
     content: "";
     width: 100%;
