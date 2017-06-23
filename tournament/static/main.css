@@ -96,12 +96,26 @@ iframe {
 }
 .block-chat {
     height: 25rem;
+    display: flex;
+    flex-direction: column;
+}
+.block-chat__title {
+    margin-bottom: 3rem;
 }
 .block-chat__input {
-    width: 100%;
+    width: 95%;
+    position: relative;
     border: solid 1px #e6e6e6;
     height: 52px;
     border-radius: 10px;
+    margin-top: auto;
+    cursor: text;
+}
+.block-chat__input::after {
+    content: url("data:image/svg+xml,%3Csvg fill='%23cfdddd' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    position: absolute;
+    right: -40px;
+    top: 12px;
 }
 .block-chat::after {
     content: "";
@@ -111,6 +125,29 @@ iframe {
     position: absolute;
     left: 0;
     top: 5rem;
+}
+.block-chat__scrolling-part {
+    overflow: auto;
+}
+.block-chat__message {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 0.75rem;
+    padding-right: 1rem;
+}
+.block-chat__msg-first-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.block-chat__date {
+    color: #cdcdcd;
+}
+.block-chat__text {
+    display: block;
+    background-color: #f3f3f3;
+    padding: 0.75rem;
+    border-radius: 10px;
 }
 /*.block-round-info__round-number--active {
     color: #f7f7f7;
