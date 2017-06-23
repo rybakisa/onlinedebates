@@ -135,6 +135,10 @@ iframe {
     margin-bottom: 0.75rem;
     padding-right: 1rem;
 }
+/*Класс, который добавляется, если пишет сам юзер.*/
+.block-chat__name--username {
+    color: #057eff;
+}
 .block-chat__msg-first-line {
     display: flex;
     justify-content: space-between;
