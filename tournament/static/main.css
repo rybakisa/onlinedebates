@@ -1,0 +1,119 @@
+h2 {
+    font-weight: normal;
+    font-size: 22px;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+h4 {
+    font-weight: normal;
+    margin: 1rem 0 0.5rem 0;
+}
+h3 {
+    margin: 0;
+}
+iframe {
+    width: 100%;
+    height: 18rem;
+    border: none;
+}
+.page-container {
+    background-color: #f2f2f2;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: #a6a6a6;
+}
+.page-header {
+    height: 88px;
+    width: 100%;
+    background-color: #80deea;
+    box-shadow: 0 0 19.5px 1.5px rgba(0, 0, 0, 0.43);
+}
+.page-content {
+    display: flex;
+    padding: 2rem 4rem;
+}
+.page-block {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.23);
+    padding: 2rem;
+    position: relative;
+}
+.block-youtube {
+    margin-bottom: 1rem;
+}
+.block-column {
+    display: flex;
+    flex-direction: column;
+}
+.block-column .page-block:first-child {
+    margin-bottom: 1rem;
+}
+.block-column--small {
+    width: 30%;
+    margin-right: 1rem;
+}
+.block-column--big {
+    width: 70%;
+}
+.block-round-info {
+
+}
+.block-round-info__title {
+    display: inline-block;
+}
+.block-round-info__round-number {
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+.block-round-info__round-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.block-round-info__round-table-cell {
+    border: solid 1px #e6e6e6;
+    width: 50%;
+    padding: 1rem;
+    font-weight: bold;
+}
+.block-round-info__chair {
+    padding: 1rem 0 0 0;
+}
+.block-round-info__motion,
+.block-round-info__infoslide {
+    padding: 1rem 0 0 0;
+}
+.block-round-info__room-button {
+    margin: 3rem 0 2rem 0;
+    color: #fff;
+    background-color: #24e16a;
+    width: 250px;
+    height: 37px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.block-chat {
+    height: 25rem;
+}
+.block-chat::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #e6e6e6;
+    position: absolute;
+    left: 0;
+    top: 5rem;
+}
+/*.block-round-info__round-number--active {
+    color: #f7f7f7;
+    position: relative;
+}*/
+/*.block-round-info__round-number--active::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #dadada;
+}*/
