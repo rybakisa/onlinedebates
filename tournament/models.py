@@ -80,7 +80,7 @@ class Room(models.Model):
     def websocket_group(self):
         """
         Returns the Channels Group that sockets should subscribe to to get sent
-        messages as they are generated.
+        messages as they are generated
         """
         return Group("room-%s" % self.id)
 

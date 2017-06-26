@@ -213,5 +213,4 @@ ENV/
 .ropeproject
 
 /db.sqlite3
-/manage.py
 /onlinedebates/settings.py
