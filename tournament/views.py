@@ -20,25 +20,36 @@ def index(request):
     })
 
 
-def chat_view(request):
-    return render(request, 'chat/index.html')
-
-
 class MainPage(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        pass
-        # find current tournament
-        # find all rounds
-        # find current round
-        # find room and results for every round to print tabs and tab
-        # find logged in user
-        # find command for than user
-        # find all chat messages
-        # find all feedbacks
+
+        context = super(MainPage, self).get_context_data(**kwargs)
+
+        tournament = None   #просто текущий турнир
+        current_user = None
+        current_team = None
+        rounds = None       #выбрать все и отсортировать по номеру, ставить последний акетивным
+        current_round_number = None #как вариант, в темплейте сравнивать каждый с текущим
+        messages = None     #выбрать сообщения судей и сообщения участников в один запрос и отсортировать по времени
+        tab = None          #сформировать QuerySet с тэбом
+
+        tournament = Tournament.objects.get(current=True)
+        #
+        #
+        rounds = Round.objects.all().order_by('number')
+        current_round_number = rounds[-1].number
+        messages = ChatMessage.objects.all().order_by('time')
         #
 
+        context['tournament'] = tournament
+        context['current_user'] = current_user
+        context['current_team'] = current_team
+        context['rounds'] = rounds
+        context['current_round_number'] = current_round_number
+        context['messages'] = messages
+        context['tab'] = tab
 
 
 
