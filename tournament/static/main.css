@@ -88,10 +88,17 @@ iframe {
     display: inline-block;
     width: 2.5rem;
     text-align: center;
+    transition: all .3s;
+}
+.block-round-info__round-number:hover {
+    color: #4bacb8;
 }
 .block-round-info__round-number--active {
     background-color: #B2B2B2;
     border-radius: 50%;
+    color: #fff;
+}
+.block-round-info__round-number--active:hover {
     color: #fff;
 }
 .block-round-info__round-table {
@@ -154,6 +161,10 @@ iframe {
     width: 29px;
     height: 27px;
     cursor: pointer;
+    transition: all .3s;
+}
+.block-chat__button-send:hover {
+    background-image: url("data:image/svg+xml,%3Csvg fill='%234bacb8' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
 }
 .block-chat::after {
     content: "";
