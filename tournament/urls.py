@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from tournament.views import index, chat_view
+from tournament.views import MainPage
 
 urlpatterns = [
-    url(r'^$', chat_view, name='homepage'),
+    url(r'^$', MainPage.as_view(), name='mainpage'),
 ]
