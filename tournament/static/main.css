@@ -84,8 +84,15 @@ iframe {
 .block-round-info__round-number {
     font-size: 28px;
     font-weight: bold;
-    margin-right: 1.5rem;
     cursor: pointer;
+    display: inline-block;
+    width: 2.5rem;
+    text-align: center;
+}
+.block-round-info__round-number--active {
+    background-color: #B2B2B2;
+    border-radius: 50%;
+    color: #fff;
 }
 .block-round-info__round-table {
     width: 100%;
