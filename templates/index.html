@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../tournament/static/main.css">
     <link rel="stylesheet" href="../tournament/static/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../tournament/static/favicon.png">
     <title>Онлайн-турнир</title>
 </head>
 
@@ -31,8 +33,7 @@
                             <span class="block-chat__name block-chat__name--username">Тая Горбунова</span>
                             <span class="block-chat__date">12:55</span>
                         </div>
-                        <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
-                        ЭП предпочитает Восточные ценности либеральным демократиям.</span>
+                        <span class="block-chat__text">ЭП предпочитает.</span>
                     </div>
                     <div class="block-chat__message">
                         <div class="block-chat__msg-first-line">
@@ -42,8 +43,20 @@
                         <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
                         ЭП предпочитает Восточные ценности либеральным демократиям.</span>
                     </div>
+                    <div class="block-chat__message">
+                        <div class="block-chat__msg-first-line">
+                            <span class="block-chat__name">Андрей Ежов</span>
+                            <span class="block-chat__date">12:55</span>
+                        </div>
+                        <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
+                        ЭП предпочитает Восточные ценности либеральным демократиям. ЭП предпочитает Восточные ценности либеральным демократиям.
+                        ЭП предпочитает Восточные ценности либеральным демократиям.</span>
+                    </div>
                 </div>
-                <div class="block-chat__input"></div>
+                <div class="block-chat__navigation">
+                    <input type="text" class="block-chat__input">
+                    <div class="block-chat__button-send"></div>
+                </div>
             </div>
         </div>
         <!-- Широкая колонка с инфой о раунде и тэбом -->
@@ -71,32 +84,64 @@
                     </table>
                 </div>
                 <div class="block-round-info__chair">
-                    <h4 class="block-round-info__chair-title">Чеир:</h4>
+                    <h3 class="block-round-info__chair-title">Чеир:</h3>
                     <!-- Динамические данные -->
-                    <h3 class="block-round-info__chair-name">Тимофей Петухов</h4>
+                    <h4 class="block-round-info__chair-name">Тимофей Петухов</h4>
                 </div>
                 <div class="block-round-info__motion">
-                    <h4 class="block-round-info__motion-title">Резолюция:</h4>
+                    <h3 class="block-round-info__motion-title">Резолюция:</h3>
                     <!-- Динамические данные -->
-                    <h3 class="block-round-info__motion-info">ЭП предпочитает Восточные ценности либеральным демократиям.</h3>
+                    <h4 class="block-round-info__motion-info">ЭП предпочитает Восточные ценности либеральным демократиям.</h4>
                 </div>
                 <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
                 <div class="block-round-info__infoslide">
-                    <h4 class="block-round-info__infoslide-title">Инфослайд:</h4>
+                    <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
                     <!-- Динамические данные -->
-                    <h3 class="block-round-info__infoslide-text">Восточные ценности -
+                    <h4 class="block-round-info__infoslide-text">Восточные ценности -
                         это политическое движение, которое приоретизирует коллективное
                         экономическое и социальное развитие над концепцией личных прав
                         человека и либеральной демократии. Эти ценности включают приоритет
                         социальной гармонии, озабоченность социально-экономическим
                         процветанием и коллективным благополучием общества, лояльность
                         и уважение к авторитетным личностям, предпочтение коллективизма
-                        и коммунальности.</h3>
+                        и коммунальности.</h4>
                 </div>
                 <button class="block-round-info__room-button">Войти в рум</button>
             </div>
             <!-- Блок с тэбом. -->
-            <div class="page-block block-tab"></div>
+            <div class="page-block block-tab">
+                <h2 class="block-tab__title">Таблица результатов</h2>
+                <!-- Динамические данные -->
+                <table class="block-tab__table-tab">
+                    <tr class="block-tab__table-row">
+                        <td class="block-tab__table-cell block-tab__table-cell--your-team">Название команды</td>
+                        <td class="block-tab__table-cell">Сумма баллов</td>
+                        <td class="block-tab__table-cell">Р1</td>
+                        <td class="block-tab__table-cell">Р2</td>
+                        <td class="block-tab__table-cell">Р3</td>
+                        <td class="block-tab__table-cell">Р4</td>
+                        <td class="block-tab__table-cell">Р5</td>
+                    </tr>
+                    <tr class="block-tab__table-row">
+                        <td class="block-tab__table-cell">Название команды</td>
+                        <td class="block-tab__table-cell">Сумма баллов</td>
+                        <td class="block-tab__table-cell">Р1</td>
+                        <td class="block-tab__table-cell">Р2</td>
+                        <td class="block-tab__table-cell">Р3</td>
+                        <td class="block-tab__table-cell">Р4</td>
+                        <td class="block-tab__table-cell">Р5</td>
+                    </tr>
+                    <tr class="block-tab__table-row">
+                        <td class="block-tab__table-cell">Название команды</td>
+                        <td class="block-tab__table-cell">Сумма баллов</td>
+                        <td class="block-tab__table-cell">Р1</td>
+                        <td class="block-tab__table-cell">Р2</td>
+                        <td class="block-tab__table-cell">Р3</td>
+                        <td class="block-tab__table-cell">Р4</td>
+                        <td class="block-tab__table-cell">Р5</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 </body>
 
