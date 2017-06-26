@@ -205,6 +205,9 @@ iframe {
     width: 100%;
     border-collapse: collapse;
 }
+.block-tab__table-row--first-row {
+    background-color: rgba(128, 222, 234, 0.15);
+}
 .block-tab__table-cell {
     border: solid 1px #e6e6e6;
     padding: 0.5rem;
