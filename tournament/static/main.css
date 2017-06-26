@@ -282,11 +282,15 @@ iframe {
         margin-right: 0;
     }
 }
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 710px) {
     .block-round-info__title {
         display: block;
     }
     .block-round-info__header::after {
         top: 8rem;
     }
+}
+
+.block-round-info__no-data-title {
+    display: none;
 }
