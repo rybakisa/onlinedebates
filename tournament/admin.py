@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Room
+from .models import *
 
-
-admin.site.register(
-    Room,
-    list_display=["id", "title", "staff_only"],
-    list_display_links=["id", "title"],
-)
+admin.site.register(Tournament)
+admin.site.register(Round)
+admin.site.register(Room)
+admin.site.register(Team)
+admin.site.register(Player)
+admin.site.register(ChatMessage)
+admin.site.register(Result)
+admin.site.register(Feedback)
