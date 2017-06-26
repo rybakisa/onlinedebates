@@ -47,6 +47,7 @@ pip-selfcheck.json
 
 # IntelliJ
 /out/
+.idea/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -213,3 +214,4 @@ ENV/
 
 /db.sqlite3
 /manage.py
+/onlinedebates/settings.py

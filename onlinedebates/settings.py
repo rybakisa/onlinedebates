@@ -115,7 +115,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [(redis_host, 6379)],
         },
-       "ROUTING": "onlinedebates.routing.channel_routing", # We will create it in a moment
+        "ROUTING": "onlinedebates.routing.channel_routing",
     },
 }
 
