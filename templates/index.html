@@ -2,140 +2,157 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../tournament/static/main.css">
-    <link rel="stylesheet" href="../tournament/static/normalize.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../tournament/static/favicon.png">
-    <title>Онлайн-турнир</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../tournament/static/main.css">
+  <link rel="stylesheet" href="../tournament/static/normalize.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../tournament/static/favicon.png">
+  <title>Онлайн-турнир</title>
 </head>
 
 <body class="page-container">
-    <header class="page-header"></header>
-    <div class="page-content">
+  <header class="page-header">
+    <div class="page-header__schedule header-link">Расписание</div>
+    <div class="page-header__smoke-rooms-title header-link">Курилки
+      <div class="page-header__smoke-room-container">
+        <div class="page-header__smoke-room">Курилка 1</div>
+        <div class="page-header__smoke-room">Курилка 2</div>
+        <div class="page-header__smoke-room">Курилка 3</div>
+        <div class="page-header__smoke-room">Курилка 4</div>
+        <div class="page-header__smoke-room">Курилка 5</div>
+      </div>
+    </div>
+    <div class="page-header__timer">
+      <span class="page-header__timer-text">Осталось до начала раунда</span>
+      <span class="page-header__timer-watch">14:55</span>
+    </div>
+    <div class="page-header__username">Username</div>
+    <div class="page-header__log-out header-link">Выйти</div>
+  </header>
+  <div class="page-content">
 
-        <!-- Узкая колонка с трасляцией и чатом. -->
-        <div class="block-column block-column--small">
+    <!-- Узкая колонка с трасляцией и чатом. -->
+    <div class="block-column block-column--small">
 
-            <!-- Блок трансляции -->
-            <div class="block-youtube">
+      <!-- Блок трансляции -->
+      <div class="block-youtube">
 
-                <!-- Динамические данные - сюда подставляется ссылка на трансяцию. -->
-                <iframe src="https://www.youtube.com/embed/3AEprb1YwU0"></iframe>
+        <!-- Динамические данные - сюда подставляется ссылка на трансяцию. -->
+        <iframe src="https://www.youtube.com/embed/3AEprb1YwU0"></iframe>
 
+      </div>
+
+      <!-- Блок чата. -->
+
+      <!-- Динамические данные. Вся разметка сейчас -
+            это заглушки сообщений, надо выпилить. -->
+      <div class="page-block block-chat">
+        <h2 class="block-chat__title">Чат</h2>
+        <div class="block-chat__scrolling-part">
+
+          <!-- block-chat__message - разметка блока сообщения. Каждый прилетающий элемент подставляется в свой тег. -->
+          <div class="block-chat__message">
+
+            <!-- Класс block-chat__msg-first-line объединяет в себе имя юзера и время отправки. Он размещает их на одной линии. -->
+            <div class="block-chat__msg-first-line">
+
+              <!-- Имя юзера. Еще тут есть класс block-chat__name--username -
+                            он задает другой цвет тексту имени, чтобы выделить имя самого юзера. -->
+              <span class="block-chat__name block-chat__name--username">Тая Горбунова</span>
+
+              <!-- Время отправки сообщения. -->
+              <span class="block-chat__date">12:55</span>
             </div>
 
-            <!-- Блок чата. -->
+            <!-- Текст сообщения -->
+            <span class="block-chat__text">ЭП предпочитает.</span>
+          </div>
 
-            <!-- Динамические данные. Вся разметка сейчас -
-            это заглушки сообщений, надо выпилить. -->
-            <div class="page-block block-chat">
-                <h2 class="block-chat__title">Чат</h2>
-                <div class="block-chat__scrolling-part">
-
-                    <!-- block-chat__message - разметка блока сообщения. Каждый прилетающий элемент подставляется в свой тег. -->
-                    <div class="block-chat__message">
-
-                        <!-- Класс block-chat__msg-first-line объединяет в себе имя юзера и время отправки. Он размещает их на одной линии. -->
-                        <div class="block-chat__msg-first-line">
-
-                            <!-- Имя юзера. Еще тут есть класс block-chat__name--username -
-                            он задает другой цвет тексту имени, чтобы выделить имя самого юзера. -->
-                            <span class="block-chat__name block-chat__name--username">Тая Горбунова</span>
-
-                            <!-- Время отправки сообщения. -->
-                            <span class="block-chat__date">12:55</span>
-                        </div>
-
-                        <!-- Текст сообщения -->
-                        <span class="block-chat__text">ЭП предпочитает.</span>
-                    </div>
-
-                    <!-- ЗАГЛУШКИ -->
-                    <div class="block-chat__message">
-                        <div class="block-chat__msg-first-line">
-                            <span class="block-chat__name">Андрей Ежов</span>
-                            <span class="block-chat__date">12:55</span>
-                        </div>
-                        <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
+          <!-- ЗАГЛУШКИ -->
+          <div class="block-chat__message">
+            <div class="block-chat__msg-first-line">
+              <span class="block-chat__name">Андрей Ежов</span>
+              <span class="block-chat__date">12:55</span>
+            </div>
+            <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
                         ЭП предпочитает Восточные ценности либеральным демократиям.</span>
-                    </div>
-                    <div class="block-chat__message">
-                        <div class="block-chat__msg-first-line">
-                            <span class="block-chat__name">Андрей Ежов</span>
-                            <span class="block-chat__date">12:55</span>
-                        </div>
-                        <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
+          </div>
+          <div class="block-chat__message">
+            <div class="block-chat__msg-first-line">
+              <span class="block-chat__name">Андрей Ежов</span>
+              <span class="block-chat__date">12:55</span>
+            </div>
+            <span class="block-chat__text">ЭП предпочитает Восточные ценности либеральным демократиям.
                         ЭП предпочитает Восточные ценности либеральным демократиям. ЭП предпочитает Восточные ценности либеральным демократиям.
                         ЭП предпочитает Восточные ценности либеральным демократиям.</span>
-                    </div>
-                </div>
-
-                <!-- Блок инпута набора сообщения и кнопки отправки. -->
-                <div class="block-chat__navigation">
-                    <input type="text" class="block-chat__input">
-                    <div class="block-chat__button-send"></div>
-                </div>
-            </div>
+          </div>
         </div>
 
-        <!-- Широкая колонка с инфой о раунде и тэбом -->
-        <div class="block-column block-column--big">
+        <!-- Блок инпута набора сообщения и кнопки отправки. -->
+        <div class="block-chat__navigation">
+          <input type="text" class="block-chat__input">
+          <div class="block-chat__button-send"></div>
+        </div>
+      </div>
+    </div>
 
-            <!-- Блок инфы о раунде. -->
-            <div class="page-block block-round-info">
-                <div class="block-round-info__header">
-                    <h2 class="block-round-info__title">Информация о раунде</h2>
+    <!-- Широкая колонка с инфой о раунде и тэбом -->
+    <div class="block-column block-column--big">
 
-                    <!-- Класс block-round-info__round-number--active стилизует активный на данный момент раунд. -->
-                    <span class="block-round-info__round-number block-round-info__round-number--active">1</span>
-                    <span class="block-round-info__round-number">2</span>
-                    <span class="block-round-info__round-number">3</span>
-                    <span class="block-round-info__round-number">4</span>
-                    <span class="block-round-info__round-number">5</span>
-                </div>
+      <!-- Блок инфы о раунде. -->
+      <div class="page-block block-round-info">
+        <div class="block-round-info__header">
+          <h2 class="block-round-info__title">Информация о раунде</h2>
 
-                <!-- Надпись, которая показывается перед первым раундом, когда нет данных. Сейчас на ней в стилях стоит display:none. -->
-                <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и ссылка на игровой рум.</h2>
+          <!-- Класс block-round-info__round-number--active стилизует активный на данный момент раунд. -->
+          <span class="block-round-info__round-number block-round-info__round-number--active">1</span>
+          <span class="block-round-info__round-number">2</span>
+          <span class="block-round-info__round-number">3</span>
+          <span class="block-round-info__round-number">4</span>
+          <span class="block-round-info__round-number">5</span>
+        </div>
 
-                <!-- Если нет данных, не показывать весь блок block-round-info__body -->
-                <div class="block-round-info__body">
-                    <div class="block-round-info__table">
+        <!-- Надпись, которая показывается перед первым раундом, когда нет данных. Сейчас на ней в стилях стоит display:none. -->
+        <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и ссылка на игровой рум.</h2>
 
-                        <!-- Динамические данные. Сетка на раунд с позициями. -->
-                        <table class="block-round-info__round-table">
-                            <tr>
-                                <td class="block-round-info__round-table-cell">1 ПРОП</td>
-                                <td class="block-round-info__round-table-cell">1 ОП</td>
-                            </tr>
-                            <tr>
-                                <td class="block-round-info__round-table-cell">2 ПРОП</td>
-                                <td class="block-round-info__round-table-cell">2 ОП</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="block-round-info__chair">
-                        <h3 class="block-round-info__chair-title">Чеир:</h3>
+        <!-- Если нет данных, не показывать весь блок block-round-info__body -->
+        <div class="block-round-info__body">
+          <div class="block-round-info__table">
 
-                        <!-- Динамические данные. Имя чеира. -->
-                        <h4 class="block-round-info__chair-name">Тимофей Петухов</h4>
-                    </div>
-                    <div class="block-round-info__motion">
-                        <h3 class="block-round-info__motion-title">Резолюция:</h3>
+            <!-- Динамические данные. Сетка на раунд с позициями. -->
+            <table class="block-round-info__round-table">
+              <tr>
+                <td class="block-round-info__round-table-cell">1 ПРОП</td>
+                <td class="block-round-info__round-table-cell">1 ОП</td>
+              </tr>
+              <tr>
+                <td class="block-round-info__round-table-cell">2 ПРОП</td>
+                <td class="block-round-info__round-table-cell">2 ОП</td>
+              </tr>
+            </table>
+          </div>
+          <div class="block-round-info__chair">
+            <h3 class="block-round-info__chair-title">Чеир:</h3>
 
-                        <!-- Динамические данные. Тема раунда. -->
-                        <h4 class="block-round-info__motion-info">ЭП предпочитает Восточные ценности либеральным демократиям.</h4>
-                    </div>
+            <!-- Динамические данные. Имя чеира. -->
+            <h4 class="block-round-info__chair-name">Тимофей Петухов</h4>
+          </div>
+          <div class="block-round-info__motion">
+            <h3 class="block-round-info__motion-title">Резолюция:</h3>
 
-                    <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
-                    <div class="block-round-info__infoslide">
-                        <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+            <!-- Динамические данные. Тема раунда. -->
+            <h4 class="block-round-info__motion-info">ЭП предпочитает Восточные ценности либеральным демократиям.</h4>
+          </div>
 
-                        <!-- Динамические данные. Инфослайд. -->
-                        <h4 class="block-round-info__infoslide-text">Восточные ценности -
+          <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
+          <div class="block-round-info__infoslide">
+            <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+
+            <!-- Динамические данные. Инфослайд. -->
+            <h4 class="block-round-info__infoslide-text">Восточные ценности -
                         это политическое движение, которое приоретизирует коллективное
                         экономическое и социальное развитие над концепцией личных прав
                         человека и либеральной демократии. Эти ценности включают приоритет
@@ -143,49 +160,49 @@
                         процветанием и коллективным благополучием общества, лояльность
                         и уважение к авторитетным личностям, предпочтение коллективизма
                         и коммунальности.</h4>
-                    </div>
+          </div>
 
-                    <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
-                    <button class="block-round-info__room-button">Войти в рум</button>
-                </div>
-            </div>
-
-            <!-- Блок с тэбом. -->
-            <div class="page-block block-tab">
-                <h2 class="block-tab__title">Таблица результатов</h2>
-
-                <!-- Динамические данные. Таблица из tabmakera. Сейчас вся разметка - заглушки. -->
-                <table class="block-tab__table-tab">
-                    <tr class="block-tab__table-row block-tab__table-row--first-row">
-                        <td class="block-tab__table-cell">Название команды</td>
-                        <td class="block-tab__table-cell">Сумма баллов</td>
-                        <td class="block-tab__table-cell">Р1</td>
-                        <td class="block-tab__table-cell">Р2</td>
-                        <td class="block-tab__table-cell">Р3</td>
-                        <td class="block-tab__table-cell">Р4</td>
-                        <td class="block-tab__table-cell">Р5</td>
-                    </tr>
-                    <tr class="block-tab__table-row">
-                        <td class="block-tab__table-cell block-tab__table-cell--your-team">Название команды</td>
-                        <td class="block-tab__table-cell">Сумма баллов</td>
-                        <td class="block-tab__table-cell">Р1</td>
-                        <td class="block-tab__table-cell">Р2</td>
-                        <td class="block-tab__table-cell">Р3</td>
-                        <td class="block-tab__table-cell">Р4</td>
-                        <td class="block-tab__table-cell">Р5</td>
-                    </tr>
-                    <tr class="block-tab__table-row">
-                        <td class="block-tab__table-cell">Название команды</td>
-                        <td class="block-tab__table-cell">Сумма баллов</td>
-                        <td class="block-tab__table-cell">Р1</td>
-                        <td class="block-tab__table-cell">Р2</td>
-                        <td class="block-tab__table-cell">Р3</td>
-                        <td class="block-tab__table-cell">Р4</td>
-                        <td class="block-tab__table-cell">Р5</td>
-                    </tr>
-                </table>
-            </div>
+          <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+          <button class="block-round-info__room-button">Войти в рум</button>
         </div>
+      </div>
+
+      <!-- Блок с тэбом. -->
+      <div class="page-block block-tab">
+        <h2 class="block-tab__title">Таблица результатов</h2>
+
+        <!-- Динамические данные. Таблица из tabmakera. Сейчас вся разметка - заглушки. -->
+        <table class="block-tab__table-tab">
+          <tr class="block-tab__table-row block-tab__table-row--first-row">
+            <td class="block-tab__table-cell">Название команды</td>
+            <td class="block-tab__table-cell">Сумма баллов</td>
+            <td class="block-tab__table-cell">Р1</td>
+            <td class="block-tab__table-cell">Р2</td>
+            <td class="block-tab__table-cell">Р3</td>
+            <td class="block-tab__table-cell">Р4</td>
+            <td class="block-tab__table-cell">Р5</td>
+          </tr>
+          <tr class="block-tab__table-row">
+            <td class="block-tab__table-cell block-tab__table-cell--your-team">Название команды</td>
+            <td class="block-tab__table-cell">Сумма баллов</td>
+            <td class="block-tab__table-cell">Р1</td>
+            <td class="block-tab__table-cell">Р2</td>
+            <td class="block-tab__table-cell">Р3</td>
+            <td class="block-tab__table-cell">Р4</td>
+            <td class="block-tab__table-cell">Р5</td>
+          </tr>
+          <tr class="block-tab__table-row">
+            <td class="block-tab__table-cell">Название команды</td>
+            <td class="block-tab__table-cell">Сумма баллов</td>
+            <td class="block-tab__table-cell">Р1</td>
+            <td class="block-tab__table-cell">Р2</td>
+            <td class="block-tab__table-cell">Р3</td>
+            <td class="block-tab__table-cell">Р4</td>
+            <td class="block-tab__table-cell">Р5</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 </body>
 
 </html>
