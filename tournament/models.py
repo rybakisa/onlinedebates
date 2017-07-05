@@ -9,6 +9,18 @@ from channels import Group
 # TODO: refactor msg types
 from .settings import MSG_TYPE_MESSAGE
 
+USERTYPE_CHOICES = ((1, 'player'),
+                    (2, 'judge'),
+                    (3, 'admin'))
+
+ROUNDTYPE_CHOICES = ((1, 'preliminary'),
+                     (2, 'semifinal'),
+                     (3, 'final'))
+
+POSITION_CHOICES = ((1, 'OG'),
+                    (2, 'OO'),
+                    (3, 'CG'),
+                    (4, 'CO'))
 
 @python_2_unicode_compatible
 class Tournament(models.Model):
@@ -36,7 +48,7 @@ class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, related_name='players', blank=True)
     name = models.CharField(max_length=255)
-    type = models.CharField(max_length=255)   # judje or player
+    type = models.IntegerField(choices=USERTYPE_CHOICES)   # judje or player or admin
     vk = models.URLField(blank=True)
     feedbacks = models.ManyToManyField('Player', through='Feedback')
 
@@ -60,13 +72,13 @@ class Player(models.Model):
 @python_2_unicode_compatible
 class Round(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='rounds')
-    type = models.CharField(max_length=10)
+    type = models.IntegerField(choices=ROUNDTYPE_CHOICES)
     number = models.IntegerField()
     resolution = models.TextField()
     infoslide = models.TextField(blank=True)
 
     def __str__(self):
-        return self.type
+        return str(ROUNDTYPE_CHOICES[self.type-1][1]) + ' ' + str(self.number)
 
 
 # TODO: change sent message logic
@@ -77,14 +89,17 @@ class Room(models.Model):
     title = models.CharField(max_length=255)
     chair = models.ForeignKey(Player, on_delete=models.CASCADE)
     hangout_link = models.URLField()
-    OG = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='OGs')
-    OO = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='OOs')
-    CG = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='CGs')
-    CO = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='COs')
-    results = models.ManyToManyField(Team, through='Result')
+    # OG = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='OGs')
+    # OG_place = models.IntegerField(default=0)
+    # OO = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='OOs')
+    # OO_place = models.IntegerField(default=0)
+    # CG = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='CGs')
+    # CG_place = models.IntegerField(default=0)
+    # CO = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='COs')
+    # CO_place = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.round)
 
     # @property
     # def websocket_group(self):
@@ -106,14 +121,16 @@ class Room(models.Model):
     #     )
 
 
-# TODO: choises for place
 # TODO: logic for team speaks
 @python_2_unicode_compatible
 class Result(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    place = models.IntegerField()
-    # score = models.IntegerField()
+    position = models.IntegerField(default=0, choices=POSITION_CHOICES)
+    score = models.IntegerField(default=-1)
+
+    def __str__(self):
+        return str(self.room) + ' | ' + str(self.team) + ' | ' + str(self.score)
 
 
 @python_2_unicode_compatible
@@ -128,6 +145,15 @@ class ChatMessage(models.Model):
     msg_from = models.ForeignKey(Player)
     time = models.DateTimeField(auto_now=True)
     text = models.TextField()
+
+
+@python_2_unicode_compatible
+class Kurilka(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.URLField()
+
+    def __str__(self):
+        return self.name
 
 
 
