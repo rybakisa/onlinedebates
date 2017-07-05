@@ -6,7 +6,7 @@
 $(document).ready(function () {
 
     // создать подключени
-    socket = new WebSocket("ws://localhost:8000/chat/1");
+    socket = new WebSocket("ws://139.59.155.192/chat/1");
 
     // обработчик входящих сообщений
     socket.onmessage = function (event) {
