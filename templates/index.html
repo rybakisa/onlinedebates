@@ -7,6 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="user_id" content="{{ current_user.pk }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'main.js' %}"></script>
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -16,7 +19,24 @@
 </head>
 
 <body class="page-container">
-<header class="page-header"></header>
+
+<header class="page-header">
+    <a href="" class="page-header__schedule header-link">Расписание</a>
+    <div class="page-header__smoke-rooms-title header-link">Курилки
+        <div class="page-header__smoke-room-container">
+            {% for k in kurilki %}
+                <a href="{{ k.link }}" class="page-header__smoke-room">{{ k.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="page-header__timer">
+        <span class="page-header__timer-text">Осталось до начала раунда</span>
+        <span class="page-header__timer-watch">14:55</span>
+    </div>
+    <div class="page-header__username">{{ current_user }}</div>
+    <a href="{% url 'tournament:logout' %}" class="page-header__log-out header-link">Выйти</a>
+</header>
+
 <div class="page-content">
 
     <!-- Узкая колонка с трасляцией и чатом. -->
@@ -24,7 +44,7 @@
 
         <!-- Блок трансляции -->
         <div class="block-youtube">
-            <iframe src={{ tournament.translation_link }}></iframe>
+            <iframe src="{{ tournament.translation_link }}"></iframe>
         </div>
 
         <!-- Блок чата. -->
@@ -34,9 +54,9 @@
                 <div class="block-chat__message">
                     <div class="block-chat__msg-first-line">
                         {% if msg.msg_from == current_user %}
-                            <span class="block-chat__name block-chat__name--username">{{ msg_from.name }}</span>
+                            <span class="block-chat__name block-chat__name--username">{{ msg.msg_from.name }}</span>
                         {% else %}
-                            <span class="block-chat__name">{{ msg_from.name }}</span>
+                            <span class="block-chat__name">{{ msg.msg_from.name }}</span>
                         {% endif %}
                         <span class="block-chat__date">{{ msg.time }}</span>
                     </div>
@@ -51,110 +71,113 @@
             <div class="block-chat__button-send"></div>
         </div>
     </div>
-</div>
 
-<!-- Широкая колонка с инфой о раунде и тэбом -->
-<div class="block-column block-column--big">
 
-    <!-- Блок инфы о раунде. -->
-    <div class="page-block block-round-info">
-        {% if rounds %}
+    <!-- Широкая колонка с инфой о раунде и тэбом -->
+    <div class="block-column block-column--big">
 
-            <div class="block-round-info__header">
-                <h2 class="block-round-info__title">Информация о раунде</h2>
-                {% for round in rounds %}
-                    {% if round.current is True %}
-                        <span class="block-round-info__round-number block-round-info__round-number--active">{{ round.number }}</span>
-                    {% else %}
-                        <span class="block-round-info__round-number">{{ round.number }}</span>
-                    {% endif %}
-                {% endfor %}
-            </div>
+        <!-- Блок инфы о раунде. -->
+        {% if current_user.type == 1 or current_user.type == 3 %}
+            <div class="page-block block-round-info">
+                {% if current_user_rooms %}
+                    <div class="block-round-info__header">
+                        <h2 class="block-round-info__title">Информация о раунде</h2>
+                        {% for room in current_user_rooms %}
+                            {% if room.round.current is True %}
+                                <span class="block-round-info__round-number block-round-info__round-number--active">{{ room.round.number }}</span>
+                            {% else %}
+                                <span class="block-round-info__round-number">{{ room.round.number }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
 
-            <div class="block-round-info__body">
-                {% for round in rounds %}
-                    {% for room in round.rooms %}
-                        {% if room.OG == current_team or room.OO == current_team or room.CG == current_team or room.CO == current_team %}
-                            <div class="block-round-info__table">
-                                <table class="block-round-info__round-table">
-                                    <tr>
-                                        <td class="block-round-info__round-table-cell">1 ПРОП {{ room.OG }}</td>
-                                        <td class="block-round-info__round-table-cell">1 ОП {{ room.OO }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="block-round-info__round-table-cell">2 ПРОП {{ room.CG }}</td>
-                                        <td class="block-round-info__round-table-cell">2 ОП {{ room.CO }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="block-round-info__chair">
-                                <h3 class="block-round-info__chair-title">Чеир:</h3>
-                                <!-- Динамические данные. Имя чеира. -->
-                                <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
+                    {% for room in current_user_rooms %}
+                        <div class="block-round-info__body">
+                        <div class="block-round-info__table">
+                            <table class="block-round-info__round-table">
+                                <tr>
+                                    <td class="block-round-info__round-table-cell">1П: {{ room.result_set.all.0.team }} | {{ room.result_set.all.0.score }} балл(ов)</td>
+                                    <td class="block-round-info__round-table-cell">1О: {{ room.result_set.all.1.team }} | {{ room.result_set.all.1.score }} балл(ов)</td>
+                                </tr>
+                                <tr>
+                                    <td class="block-round-info__round-table-cell">2П: {{ room.result_set.all.2.team }} | {{ room.result_set.all.2.score }} балл(ов)</td>
+                                    <td class="block-round-info__round-table-cell">2О: {{ room.result_set.all.3.team }} | {{ room.result_set.all.3.score }} балл(ов)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="block-round-info__chair">
+                            <h3 class="block-round-info__chair-title">Чеир:</h3>
+                            <!-- Динамические данные. Имя чеира. -->
+                            <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
+                        </div>
+
+                        <div class="block-round-info__motion">
+                            <h3 class="block-round-info__motion-title">Резолюция:</h3>
+                            <!-- Динамические данные. Тема раунда. -->
+                            <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
+                        </div>
+                        <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
+                        {% if round.infoslide %}
+                            <div class="block-round-info__infoslide">
+                                <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+
+                                <!-- Динамические данные. Инфослайд. -->
+                                <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
                             </div>
                         {% endif %}
-                    {% endfor %}
-                    <div class="block-round-info__motion">
-                        <h3 class="block-round-info__motion-title">Резолюция:</h3>
-                        <!-- Динамические данные. Тема раунда. -->
-                        <h4 class="block-round-info__motion-info">{{ round.resolution }}</h4>
-                    </div>
-                    <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
-                    {% if round.infoslide %}
-                        <div class="block-round-info__infoslide">
-                            <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
-
-                            <!-- Динамические данные. Инфослайд. -->
-                            <h4 class="block-round-info__infoslide-text">{{ round.infoslide }}</h4>
+                        <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+                        <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в рум</a></button>
                         </div>
-                    {% endif %}
-                    <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
-                    <button class="block-round-info__room-button">Войти в рум</button>
-                {% endfor %}
+                    {% endfor %}
+
+
+                {% else %}
+
+                    <div class="block-round-info__header">
+                        <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и
+                            ссылка
+                            на
+                            игровой рум.</h2>
+                    </div>
+
+                {% endif %}
             </div>
-
-        {% else %}
-
-            <div class="block-round-info__header">
-                <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и ссылка на
-                    игровой рум.</h2>
-            </div>
-
+        {% elif current_user.type == 2 %}
         {% endif %}
-    </div>
 
 
-    <!-- Блок с тэбом. -->
-    <div class="page-block block-tab">
-        <h2 class="block-tab__title">Таблица результатов</h2>
+        <!-- Блок с тэбом. -->
+        <div class="page-block block-tab">
+            <h2 class="block-tab__title">Таблица результатов</h2>
 
-        <!-- Динамические данные. Таблица из tabmakera. Сейчас вся разметка - заглушки. -->
-        <table class="block-tab__table-tab">
-            <tr class="block-tab__table-row block-tab__table-row--first-row">
-                <td class="block-tab__table-cell">Название команды</td>
-                <td class="block-tab__table-cell">Сумма баллов</td>
-                <td class="block-tab__table-cell">Р1</td>
-                <td class="block-tab__table-cell">Р2</td>
-                <td class="block-tab__table-cell">Р3</td>
-                <td class="block-tab__table-cell">Р4</td>
-                <td class="block-tab__table-cell">Р5</td>
-            </tr>
-            {% for str in tab %}
-                <tr class="block-tab__table-row">
-                    {% if str.team == current_team %}
-                        <td class="block-tab__table-cell block-tab__table-cell--your-team">{{ str.team.name }}</td>
-                    {% else %}
-                        <td class="block-tab__table-cell">{{ str.team.name }}</td>
-                    {% endif %}
-                    <td class="block-tab__table-cell">{{ str.sum }}</td>
-                    <td class="block-tab__table-cell">{{ str.r1 }}</td>
-                    <td class="block-tab__table-cell">{{ str.r2 }}</td>
-                    <td class="block-tab__table-cell">{{ str.r3 }}</td>
-                    <td class="block-tab__table-cell">{{ str.r4 }}</td>
-                    <td class="block-tab__table-cell">{{ str.r5 }}</td>
+            <!-- Динамические данные. Таблица из tabmakera. Сейчас вся разметка - заглушки. -->
+            <table class="block-tab__table-tab">
+                <tr class="block-tab__table-row block-tab__table-row--first-row">
+                    <td class="block-tab__table-cell">Название команды</td>
+                    <td class="block-tab__table-cell">Сумма баллов</td>
+                    <td class="block-tab__table-cell">Р1</td>
+                    <td class="block-tab__table-cell">Р2</td>
+                    <td class="block-tab__table-cell">Р3</td>
+                    <td class="block-tab__table-cell">Р4</td>
+                    <td class="block-tab__table-cell">Р5</td>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for str in tab %}
+                    <tr class="block-tab__table-row">
+                        {% if str.0 == current_team.name %}
+                            <td class="block-tab__table-cell block-tab__table-cell--your-team">{{ str.0 }}</td>
+                        {% else %}
+                            <td class="block-tab__table-cell">{{ str.0 }}</td>
+                        {% endif %}
+                        <td class="block-tab__table-cell">{{ str.1 }}</td>
+                        <td class="block-tab__table-cell">{{ str.2 }}</td>
+                        <td class="block-tab__table-cell">{{ str.3 }}</td>
+                        <td class="block-tab__table-cell">{{ str.4 }}</td>
+                        <td class="block-tab__table-cell">{{ str.5 }}</td>
+                        <td class="block-tab__table-cell">{{ str.6 }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 </body>
