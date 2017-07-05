@@ -1,35 +1,45 @@
 import json
+import datetime
 from urllib import parse
 import logging
 
 from channels import Group
 from channels.sessions import channel_session
+from .models import ChatMessage,Player
 
 
 @channel_session
 def ws_connect(message, room):
-    query = parse.parse_qs(message['query_string'])
-    if b'username' not in query:
-        return
-    logging.info('Adding websocket with username %s in room %s',
-                 query[b'username'][0].decode('utf-8'), room)
+    logging.info('Adding websocket in room %s',room)
     Group('chat-%s' % room).add(message.reply_channel)
     message.channel_session['room'] = room
-    message.channel_session['username'] = query[b'username'][0].decode('utf-8')
     message.reply_channel.send({'accept': True})
 
 
 @channel_session
 def ws_echo(message):
-    if 'username' not in message.channel_session:
-        return
     room = message.channel_session['room']
-    logging.info('Echoing message %s from username %s in room %s',
-                 message.content['text'], message.channel_session['username'],
-                 room)
-    Group('chat-%s' % room).send({
-        'text': json.dumps({
-            'message': message.content['text'],
-            'username': message.channel_session['username']
-        }),
-    })
+    logging.info('Echoing message %s in room %s', message.content['text'], room)
+    content = message.content['text']
+    content = json.loads(content)
+
+    if content['event'] == 'chat':
+
+        msg_from = Player.objects.get(pk=content['data']['from_id'])
+        text = content['data']['text']
+
+        # save to DB
+        cm = ChatMessage(msg_from=msg_from, text=text)
+        cm.save()
+
+        # send message
+        Group('chat-%s' % room).send({
+            'text': json.dumps({
+                'event':'chat',
+                'data': {
+                    'from_name':msg_from.name,
+                    'from_id':msg_from.pk,
+                    'text':text,
+                    'time':str(cm.time), },}),})
+
+
