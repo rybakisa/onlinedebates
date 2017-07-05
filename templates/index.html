@@ -63,15 +63,13 @@
                     <span class="block-chat__text">{{ msg.text }}</span>
                 </div>
             {% endfor %}
-        </div>
-
-        <!-- Блок инпута набора сообщения и кнопки отправки. -->
-        <div class="block-chat__navigation">
-            <input type="text" class="block-chat__input">
-            <div class="block-chat__button-send"></div>
+            <!-- Блок инпута набора сообщения и кнопки отправки. -->
+            <div class="block-chat__navigation">
+                <input type="text" class="block-chat__input">
+                <div class="block-chat__button-send"></div>
+            </div>
         </div>
     </div>
-
 
     <!-- Широкая колонка с инфой о раунде и тэбом -->
     <div class="block-column block-column--big">
@@ -93,40 +91,53 @@
 
                     {% for room in current_user_rooms %}
                         <div class="block-round-info__body">
-                        <div class="block-round-info__table">
-                            <table class="block-round-info__round-table">
-                                <tr>
-                                    <td class="block-round-info__round-table-cell">1П: {{ room.result_set.all.0.team }} | {{ room.result_set.all.0.score }} балл(ов)</td>
-                                    <td class="block-round-info__round-table-cell">1О: {{ room.result_set.all.1.team }} | {{ room.result_set.all.1.score }} балл(ов)</td>
-                                </tr>
-                                <tr>
-                                    <td class="block-round-info__round-table-cell">2П: {{ room.result_set.all.2.team }} | {{ room.result_set.all.2.score }} балл(ов)</td>
-                                    <td class="block-round-info__round-table-cell">2О: {{ room.result_set.all.3.team }} | {{ room.result_set.all.3.score }} балл(ов)</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="block-round-info__chair">
-                            <h3 class="block-round-info__chair-title">Чеир:</h3>
-                            <!-- Динамические данные. Имя чеира. -->
-                            <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
-                        </div>
-
-                        <div class="block-round-info__motion">
-                            <h3 class="block-round-info__motion-title">Резолюция:</h3>
-                            <!-- Динамические данные. Тема раунда. -->
-                            <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
-                        </div>
-                        <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
-                        {% if round.infoslide %}
-                            <div class="block-round-info__infoslide">
-                                <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
-
-                                <!-- Динамические данные. Инфослайд. -->
-                                <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
+                            <div class="block-round-info__table">
+                                <table class="block-round-info__round-table">
+                                    <tr>
+                                        <td class="block-round-info__round-table-cell">
+                                            1П: {{ room.result_set.all.0.team }} | {{ room.result_set.all.0.score }}
+                                            балл(ов)
+                                        </td>
+                                        <td class="block-round-info__round-table-cell">
+                                            1О: {{ room.result_set.all.1.team }} | {{ room.result_set.all.1.score }}
+                                            балл(ов)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="block-round-info__round-table-cell">
+                                            2П: {{ room.result_set.all.2.team }} | {{ room.result_set.all.2.score }}
+                                            балл(ов)
+                                        </td>
+                                        <td class="block-round-info__round-table-cell">
+                                            2О: {{ room.result_set.all.3.team }} | {{ room.result_set.all.3.score }}
+                                            балл(ов)
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        {% endif %}
-                        <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
-                        <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в рум</a></button>
+                            <div class="block-round-info__chair">
+                                <h3 class="block-round-info__chair-title">Чеир:</h3>
+                                <!-- Динамические данные. Имя чеира. -->
+                                <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
+                            </div>
+
+                            <div class="block-round-info__motion">
+                                <h3 class="block-round-info__motion-title">Резолюция:</h3>
+                                <!-- Динамические данные. Тема раунда. -->
+                                <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
+                            </div>
+                            <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
+                            {% if round.infoslide %}
+                                <div class="block-round-info__infoslide">
+                                    <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+
+                                    <!-- Динамические данные. Инфослайд. -->
+                                    <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
+                                </div>
+                            {% endif %}
+                            <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+                            <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в
+                                рум</a></button>
                         </div>
                     {% endfor %}
 
