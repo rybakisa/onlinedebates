@@ -48,6 +48,42 @@ body {
 .header-link {
   cursor: pointer;
 }
+.page-header__schedule-container {
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  width: 285px;
+  top: 35px;
+  left: -30px;
+  line-height: 2;
+  padding: 0 .5rem 0.5rem .5rem;
+  color: #737373;
+}
+.page-header__schedule {
+  position: relative;
+  height: 100%;
+  top: 35%;
+}
+.page-header__schedule-item {
+  line-height: 1.2;
+  padding-top: 1rem;
+}
+.page-header__schedule-subitem {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  width: 285px;
+  top: 35px;
+  left: -30px;
+  line-height: 2;
+  padding: 0 .5rem 0.5rem .5rem;
+  color: #737373;
+  line-height: 1.5;
+}
+.page-header__schedule:hover .page-header__schedule-container {
+  display: block;
+}
 .page-header__smoke-rooms-title {
   position: relative;
   height: 100%;
