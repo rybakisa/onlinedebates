@@ -47,6 +47,12 @@ body {
 }
 .header-link {
   cursor: pointer;
+  transition: all .3s;
+}
+.header-link:hover,
+.page-header__schedule-item:hover,
+.page-header__smoke-room:hover {
+  color: #4bacb8;
 }
 .page-header__schedule-container {
   position: absolute;
@@ -62,8 +68,6 @@ body {
 }
 .page-header__schedule {
   position: relative;
-  height: 100%;
-  top: 35%;
 }
 .page-header__schedule-item {
   line-height: 1.2;
@@ -81,9 +85,6 @@ body {
   color: #737373;
   line-height: 1.5;
 }
-.page-header__schedule:hover .page-header__schedule-container {
-  display: block;
-}
 .page-header__smoke-rooms-title {
   position: relative;
   height: 100%;
@@ -100,9 +101,6 @@ body {
   left: -30px;
   line-height: 2;
   padding: 0.5rem 0;
-}
-.page-header__smoke-rooms-title:hover .page-header__smoke-room-container {
-  display: block;
 }
 .page-header__smoke-room {
   cursor: pointer;
