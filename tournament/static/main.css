@@ -88,11 +88,12 @@ body {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
   width: 285px;
   top: 35px;
-  left: -30px;
+  left: 245px;
   line-height: 2;
   padding: 0 .5rem 0.5rem .5rem;
   color: #737373;
   line-height: 1.5;
+  display: none;
 }
 
 .page-header__smoke-rooms-title {
