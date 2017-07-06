@@ -22,7 +22,7 @@ a {
   text-decoration: none;
   color: #fff;
 }
-.page-container {
+body {
     background-color: #F5F5F6;
     /*background-color: #f2f2f2;*/
     font-size: 14px;
@@ -349,4 +349,60 @@ a {
 
 .block-round-info__no-data-title {
     display: none;
+}
+
+/*Стили для формы логина*/
+.main-title {
+  display: inline-block;
+  margin-bottom: 3rem;
+}
+.main-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+}
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.input-title {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.colored-text {
+  color: #4bacb8;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.form-field {
+  border: solid 1px #e6e6e6;
+  border-radius: 2px;
+  outline: none;
+  padding: 0.5rem 1rem;
+}
+.login {
+  margin-left: 20px;
+}
+.password {
+  margin-left: 9px;
+}
+.login-button {
+  color: #fff;
+  background-color: #24e16a;
+  width: 130px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .4s;
+  font-size: 1.1rem;
+}
+.login-button:hover {
+    background-color: #20C75E;
 }

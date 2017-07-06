@@ -1,12 +1,33 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Login{% endblock %}
-{% block header_text %}Login{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../tournament/static/main.css">
+  <link rel="stylesheet" href="../../tournament/static/normalize.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <title>Login</title>
+</head>
 
-{% block content %}
-    <form action="." method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button>Login</button>
-    </form>
-{% endblock %}
+<body>
+  <div class="main-container">
+    <div class="page-block login-container">
+      <h1 class="main-title">Добро пожаловать на <span class="colored-text">
+        Летний онлайн-турнир!
+      </span></h1>
+      <div class="login-form">
+        <label class="input-title" for="login">
+          Логин:
+          <input type="text" id="login" class="form-field login"> </label>
+        <label class="input-title" for="password">
+          Пароль:
+          <input type="password" id="password" class="form-field password"></label>
+      </div>
+      <button type="submit" class="login-button">Войти</button>
+    </div>
+  </div>
+</body>
+
+</html>
