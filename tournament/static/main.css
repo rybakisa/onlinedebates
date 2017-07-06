@@ -72,7 +72,8 @@ a {
   cursor: pointer;
   color: #737373;
 }
-.page-header__timer {
+.page-header__timer,
+.page-header__username {
   display: flex;
   flex-direction: column;
   align-items: center;
