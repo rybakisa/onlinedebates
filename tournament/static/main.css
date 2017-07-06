@@ -230,6 +230,7 @@ a {
     color: #000;
     margin-bottom: 0.75rem;
     padding-right: 1rem;
+    word-wrap: break-word;
 }
 /*Класс, который добавляется, если пишет сам юзер.*/
 .block-chat__name--username {
