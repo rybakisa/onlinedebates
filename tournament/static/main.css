@@ -572,3 +572,10 @@ input[type="radio"] {
 .modal-window__form-button:hover {
   background-color: #5FC768;
 }
+
+.block-round-info__body {
+  display: none;
+}
+.block-round-info--active {
+  display: block;
+}

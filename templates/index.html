@@ -191,18 +191,18 @@
           <h2 class="block-round-info__title">Информация о раунде</h2>
 
           <!-- Класс block-round-info__round-number--active стилизует активный на данный момент раунд. -->
-          <span class="block-round-info__round-number block-round-info__round-number--active">1</span>
-          <span class="block-round-info__round-number">2</span>
-          <span class="block-round-info__round-number">3</span>
-          <span class="block-round-info__round-number">4</span>
-          <span class="block-round-info__round-number">5</span>
+          <span class="block-round-info__round-number block-round-info__round-number--active" data-tab="tablink-1">1</span>
+          <span class="block-round-info__round-number" data-tab="tablink-2">2</span>
+          <span class="block-round-info__round-number" data-tab="tablink-3">3</span>
+          <span class="block-round-info__round-number" data-tab="tablink-4">4</span>
+          <span class="block-round-info__round-number" data-tab="tablink-5">5</span>
         </div>
 
         <!-- Надпись, которая показывается перед первым раундом, когда нет данных. Сейчас на ней в стилях стоит display:none. -->
         <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и ссылка на игровой рум.</h2>
 
         <!-- Если нет данных, не показывать весь блок block-round-info__body -->
-        <div class="block-round-info__body">
+        <div class="block-round-info__body block-round-info--active" id="tablink-1">
           <div class="block-round-info__table">
 
             <!-- Динамические данные. Сетка на раунд с позициями. -->
@@ -248,6 +248,40 @@
           <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
           <button class="block-round-info__room-button">Войти в рум</button>
         </div>
+        <div class="block-round-info__body" id="tablink-2">
+          <div class="block-round-info__table">
+
+            <!-- Динамические данные. Сетка на раунд с позициями. -->
+            <table class="block-round-info__round-table">
+              <tr>
+                <td class="block-round-info__round-table-cell">1 ПРОП</td>
+                <td class="block-round-info__round-table-cell">1 ОП</td>
+              </tr>
+              <tr>
+                <td class="block-round-info__round-table-cell">2 ПРОП</td>
+                <td class="block-round-info__round-table-cell">2 ОП</td>
+              </tr>
+            </table>
+          </div>
+          <div class="block-round-info__chair">
+            <h3 class="block-round-info__chair-title">Чеир:</h3>
+
+            <!-- Динамические данные. Имя чеира. -->
+            <h4 class="block-round-info__chair-name">Тра-ля-ля</h4>
+          </div>
+          <div class="block-round-info__motion">
+            <h3 class="block-round-info__motion-title">Резолюция:</h3>
+
+            <!-- Динамические данные. Тема раунда. -->
+            <h4 class="block-round-info__motion-info">ЭП отменит дедлайны.</h4>
+          </div>
+
+          <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+          <button class="block-round-info__room-button">Войти в рум</button>
+        </div>
+        <div class="block-round-info__body" id="tablink-3">Информации нет. Раунд еще не прошел.</div>
+        <div class="block-round-info__body" id="tablink-4">Информации нет. Раунд еще не прошел.</div>
+        <div class="block-round-info__body" id="tablink-5">Информации нет. Раунд еще не прошел.</div>
       </div>
 
       <!-- Блок с тэбом. -->
