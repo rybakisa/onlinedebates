@@ -80,6 +80,20 @@ a {
 .page-header__timer-watch {
   font-size: 1.5rem;
 }
+.page-header__room-button {
+  color: #fff;
+  background-color: #24e16a;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .4s;
+}
+.page-header__room-button:hover {
+    background-color: #20C75E;
+}
 .page-content {
     display: flex;
     padding: 6rem 4rem 2rem 4rem;
