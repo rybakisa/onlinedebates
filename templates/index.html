@@ -50,19 +50,21 @@
         <!-- Блок чата. -->
         <div class="page-block block-chat">
             <h2 class="block-chat__title">Чат</h2>
-            {% for msg in messages %}
-                <div class="block-chat__message">
-                    <div class="block-chat__msg-first-line">
-                        {% if msg.msg_from == current_user %}
-                            <span class="block-chat__name block-chat__name--username">{{ msg.msg_from.name }}</span>
-                        {% else %}
-                            <span class="block-chat__name">{{ msg.msg_from.name }}</span>
-                        {% endif %}
-                        <span class="block-chat__date">{{ msg.time }}</span>
+            <div class="block-chat__scrolling-part">
+                {% for msg in messages %}
+                    <div class="block-chat__message">
+                        <div class="block-chat__msg-first-line">
+                            {% if msg.msg_from == current_user %}
+                                <span class="block-chat__name block-chat__name--username">{{ msg.msg_from.name }}</span>
+                            {% else %}
+                                <span class="block-chat__name">{{ msg.msg_from.name }}</span>
+                            {% endif %}
+                            <span class="block-chat__date">{{ msg.time }}</span>
+                        </div>
+                        <span class="block-chat__text">{{ msg.text }}</span>
                     </div>
-                    <span class="block-chat__text">{{ msg.text }}</span>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
             <!-- Блок инпута набора сообщения и кнопки отправки. -->
             <div class="block-chat__navigation">
                 <input type="text" class="block-chat__input">

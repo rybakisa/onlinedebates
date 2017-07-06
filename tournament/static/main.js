@@ -46,7 +46,7 @@ $(document).ready(function () {
         messageElem = '<div class="block-chat__message"><div class="block-chat__msg-first-line">' +
             nameStyle + '<span class="block-chat__date">' + time + '</span></div><span class="block-chat__text">' +
             message + '</span></div>';
-        $(".block-chat").append(messageElem);
+        $(".block-chat__scrolling-part").append(messageElem);
     }
 
 });
