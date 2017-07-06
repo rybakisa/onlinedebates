@@ -17,7 +17,48 @@
 
 <body class="page-container">
   <div class="modal-window">
-    <div class="modal-content"></div>
+    <div class="modal-content page-block">
+      <h3 class="modal-window__title">Пожалуйста, заполните форму обратной связи на <span class="colored-text">чеира раунда.</span></h3>
+      <form class="modal-window__form">
+        <div class="modal-window__form-question">
+          <label class="modal-window__form-label" for="chair-name">Имя судьи:</label> <br>
+          <input class="modal-window__form-field" type="text" id="chair-name">
+        </div>
+        <div class="modal-window__form-question">
+          <h4 class="modal-window__form-label">Место в раунде:</h4>
+          <form>
+            <input type="radio" name="round-place" value="first">1
+            <input type="radio" name="round-place"  value="second">2
+            <input type="radio" name="round-place"  value="third">3
+            <input type="radio" name="round-place"  value="fourth">4
+          </form>
+        </div>
+        <div class="modal-window__form-question">
+          <h4 class="modal-window__form-label">Насколько понятно объяснено решение - почему команды получили такие места <br> (объяснение логики принятия решения судьей, сравнение команд между собой, <br> а не ваше личное согласие или несогласие с решением)?</h4>
+          <form>
+            <input type="radio" name="opinion" value="clear">Полностью понятно
+            <input type="radio" name="opinion" value="almost-clear">Скорее понятно
+            <input type="radio" name="opinion" value="not-clear">Скорее не понятно
+            <input type="radio" name="opinion" value="unclear">Полностью не понятно
+          </form>
+        </div>
+        <div class="modal-window__form-question">
+          <h4 class="modal-window__form-label">Насколько полезен был фидбэк (показал ли судья, какие у вас ошибки и как их исправить; <br>
+        что можно было бы еще сказать в этой теме и другие советы)?</h4>
+          <form>
+            <input type="radio" name="opinion" value="clear">Полезен
+            <input type="radio" name="opinion" value="almost-clear">Скорее полезен
+            <input type="radio" name="opinion" value="not-clear">Скорее не полезен
+            <input type="radio" name="opinion" value="unclear">Бесполезен
+          </form>
+        </div>
+        <div class="modal-window__form-question">
+          <label class="modal-window__form-label" for="comment">Комментарии: <br>
+      <textarea id="comment" class="modal-window__form-field" name="comment" rows="4" cols="80"></textarea></label>
+        </div>
+        <button class="modal-window__form-button" type="submit">Отправить</button>
+      </form>
+    </div>
   </div>
 
   <header class="page-header">
