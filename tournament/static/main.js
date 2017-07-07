@@ -6,7 +6,51 @@
 $(document).ready(function () {
 
     // создать подключени
-    socket = new WebSocket("ws://139.59.155.192/chat/1");
+    socket = new WebSocket(((window.location.protocol == 'http:') ? 'ws://':'wss://') +  window.location.host + '/chat/1');
+
+    // Это чтобы текущее статус не ломался при перезагрузке страницы (например, выводить страницу фидбэка)
+    // а также для того, чтобы запустить таймер при начале раунда, так как при событии start_round с web-socket-а
+    // мы просто перезагружаем страницу
+    var server_page_status = $('meta[name=server_page_status]').attr("content");
+    if (server_page_status == 'preparing') {
+
+        client_status = Cookies.get('client_status');
+        time_remaining = Cookies.get('time_remaining');
+        countDownDate = new Date();
+
+        if (client_status == undefined) {
+            Cookies.set('client_status', 'preparing');
+            // 15 минут = 900 sec
+            Cookies.set('time_remaining', 900);
+            // брать значение в sec из кукисов и прибавлять к текущему времени,
+            countDownDate.setMinutes(countDownDate.getMinutes() + 15);
+        }
+        else if (client_status == 'preparing') {
+            // звуковой сигнал
+            // достать из кукисов оставшееся время подготовки
+            tr = Cookies.get('time_remainig');
+            // если его нет, то постаивить 15 минут
+            if (tr == undefined) {
+                Cookies.set('time_remaining', 15);
+            }
+            // продолжение отсчета
+            else {
+                countDownDate.setSeconds(countDownDate.getSeconds() + tr);
+            }
+        }
+        else if (client_status == 'on_round') {
+            // вроде бы ничего не надо делать
+        }
+        // + проверить куку со статусом (если waiting_for_feedback то показываем модалку
+        else if (client_status == 'waiting_for_feedback') {
+            // показать модальное окно
+        }
+
+    }
+    else if (server_page_status == 'waiting_for_feedback') {
+        // показать модальное окно
+    }
+
 
     // обработчик входящих сообщений
     socket.onmessage = function (event) {
@@ -19,6 +63,18 @@ $(document).ready(function () {
             message = parsedData.data.text;
             showMessage(from_name, from_id, time, message);
             $(".block-chat__input").val("");
+        }
+        else if (parsedData.event == "start_round") {
+            location.reload();
+        }
+        // чтобы отодвигать время начала
+        else if (parsedData.event == "set_round_start_time") {
+            // TODO: отправлять с сервера на время начала, а через сколько начнется
+            var countDownDate = new Date(parsedData.data.start_time).getTime();
+        }
+        else if (parsedData.event == "get_feedback") {
+            // вывести модально окно
+            // мета статуса в значение waiting_for_feedback
         }
     };
 
