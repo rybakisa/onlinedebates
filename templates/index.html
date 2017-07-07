@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="user_id" content="{{ current_user.pk }}">
+    <meta name="server_page_status" content="{{ page_status }}">
+    <meta name="next_round_start_time" content="{{ next_round_start_time }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'jquery.cookie.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
@@ -31,10 +34,50 @@
     </div>
     <div class="page-header__timer">
         <span class="page-header__timer-text">Осталось до начала раунда</span>
-        <span class="page-header__timer-watch">14:55</span>
+        <span class="page-header__timer-watch"></span>
+        <script>
+            // Set the date we're counting down to
+            var countDownDate = new Date("Jan 5, 2018 15:37:25");
+
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get todays date and time
+                var now = new Date();
+
+                // Find the distance between now an the count down date
+                var distance = countDownDate.getTime() - now.getTime();
+
+                // Time calculations for days, hours, minutes and seconds
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result
+                // If the count down is finished, write some text
+
+                // TODO: по окончании 15 минут звуковой сигнал
+                // TODO: и установить куку со статусом в значение on_round
+                // TODO: проверять куку состояния!
+                if (distance < 0) {
+                    clearInterval(x);
+                    $(".page-header__timer-watch").text("Раунд вот-вот начнется!")
+                }
+                else {
+                    $(".page-header__timer-watch").text(hours + ":" + minutes + ":" + seconds);
+                    // TODO: сохранять в куку каждые N секунд
+                }
+            }, 1000);
+        </script>
     </div>
-    <div class="page-header__username">{{ current_user }}</div>
-    <a href="{% url 'tournament:logout' %}" class="page-header__log-out header-link">Выйти</a>
+
+
+    <div class="page-header__username">
+        <span class="page-header__username-text">{{ current_user }}</span>
+        <a href="{% url 'tournament:logout' %}" class="page-header__log-out header-link">(выйти)</a>
+    </div>
+    <button class="page-header__room-button">Рум командной подготовки</button>
+
 </header>
 
 <div class="page-content">
@@ -142,20 +185,24 @@
                                 рум</a></button>
                         </div>
                     {% endfor %}
-
-
                 {% else %}
 
                     <div class="block-round-info__header">
-                        <h2 class="block-round-info__no-data-title">Скоро здесь появятся ваша позиция, тема раунда и
-                            ссылка
-                            на
-                            игровой рум.</h2>
+                        <h2 class="block-round-info__title">Информация о раунде</h2>
+                        <div class="block-round-info__header">Скоро здесь появятся ваша позиция, тема раунда и ссылка на
+                            игровой рум.
+                        </div>
                     </div>
 
                 {% endif %}
             </div>
         {% elif current_user.type == 2 %}
+            {# TODO: логика для судей! все тоже самое, только проверять наличие игрока, а не судьи #}
+
+            {# {% elif current_user.type == 3 %} #}
+                {# TODO: кнопки для админа: обновить время начала, стартовать раунд, #}
+                {# TODO: (фидбек будет вызываться при сохранениии результатов раунда) #}
+
         {% endif %}
 
 

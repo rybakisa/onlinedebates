@@ -23,6 +23,30 @@ class MainPage(LoginRequiredMixin, TemplateView):
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'index.html'
 
+    def calculate_page_status(self, current_user, current_team, current_round, current_user_rooms):
+
+        status = None
+        results = Result.objects.filter(team=current_team, room__round=current_round)
+        feedbacks = Feedback.objects.filter(player=current_user, room__round=current_round)
+
+        # если нет ни одного рума -- waiting_for_round
+        if len(current_user_rooms) == 0:
+            status = 'waiting_for_round'
+
+        # если текущий раунд с результатами и фидбэками -- waiting_for_round
+        elif results.count() != 0 and feedbacks.count() != 0:
+            status = 'waiting_for_round'
+
+        # если текущий раунд без результатов результатов -- preparing
+        elif results.count() == 0:
+            status = 'preparing'
+
+        # есть результаты, нет фидбэка -- waiting_for_feedback
+        elif results.count() != 0 and feedbacks.count() == 0:
+            status = 'waiting_for_feedback'
+
+        return status
+
     def get_context_data(self, **kwargs):
 
         context = super(MainPage, self).get_context_data(**kwargs)
@@ -32,22 +56,25 @@ class MainPage(LoginRequiredMixin, TemplateView):
         current_team = None
         current_user_rooms = None
         rounds = None       #выбрать все и отсортировать по номеру, ставить последний акетивным
-        current_round_number = None #как вариант, в темплейте сравнивать каждый с текущим
+        current_round = None #как вариант, в темплейте сравнивать каждый с текущим
         messages = None     #выбрать сообщения судей и сообщения участников в один запрос и отсортировать по времени
         tab = None          #сформировать QuerySet с тэбом
         kurilki = None
+        page_status = None
+        next_round_start_time = None
 
         tournament = Tournament.objects.get(current=True)
+        current_round = tournament.current_round
         current_user = Player.objects.get(user=self.request.user)
         current_team = current_user.team
         current_user_rooms = Room.objects.filter(result__team=current_team).order_by('round__number', 'result__position')
-        # rounds = Round.objects.all().order_by('number')
-        # if rounds:
-        #     current_round_number = rounds[len(rounds)-1].number
-        # else:
-        #     current_round_number = 0
         messages = ChatMessage.objects.all().order_by('time')
         kurilki = Kurilka.objects.all()
+        page_status = self.calculate_page_status(current_user, current_team, current_round, current_user_rooms)
+
+        # next_round_start_time
+        next_round = Round.objects.get(number=current_round.number+1)
+        next_round_start_time = next_round.start_time
 
         # tab
         cursor = connection.cursor()
@@ -55,6 +82,8 @@ class MainPage(LoginRequiredMixin, TemplateView):
         tab = cursor.fetchall()
 
         context['tournament'] = tournament
+        context['page_status'] = page_status
+        context['next_round_start_time'] = next_round_start_time
         context['current_user'] = current_user
         context['current_team'] = current_team
         context['current_user_rooms'] = current_user_rooms
