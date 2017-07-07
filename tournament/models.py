@@ -27,6 +27,7 @@ class Tournament(models.Model):
     name = models.CharField(max_length=100)
     tabmaker_link = models.URLField()
     translation_link = models.URLField()
+    current_round = models.ForeignKey('Round', on_delete=models.DO_NOTHING, default=None, blank=True)
     current = models.BooleanField(default=False)
 
     def __str__(self):
@@ -73,6 +74,7 @@ class Player(models.Model):
 class Round(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='rounds')
     type = models.IntegerField(choices=ROUNDTYPE_CHOICES)
+    start_time = models.DateTimeField()
     number = models.IntegerField()
     resolution = models.TextField()
     infoslide = models.TextField(blank=True)
@@ -80,6 +82,8 @@ class Round(models.Model):
     def __str__(self):
         return str(ROUNDTYPE_CHOICES[self.type-1][1]) + ' ' + str(self.number)
 
+    #TODO: переопределить save, чтобы проверял (если изменение начала раунда произошло и это текущий раунд, то кидать событыие в веб-сокет)
+    #TODO: при создании раунда автоматически делать его текущим
 
 # TODO: change sent message logic
 @python_2_unicode_compatible
@@ -135,6 +139,7 @@ class Result(models.Model):
 
 @python_2_unicode_compatible
 class Feedback(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='fb_rooms')
     judge = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='fb_judges')
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='fb_players')
     # TODO: feedback structure
