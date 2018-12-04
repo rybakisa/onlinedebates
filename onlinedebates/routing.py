@@ -1,6 +1,4 @@
-from channels import include, route
-from tournament.consumers import *
-
+from channels import route
 
 channel_routing = [
     # Called when WebSockets connect

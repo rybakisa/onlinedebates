@@ -1,0 +1,47 @@
+НА КЛИЕНТ:
+
+сообщение в чат:
+{
+    'event':'chat',
+    'data': {from':'Андрей Андреев', 'text':'Текст сообщения', 'time':'July 1, 2017, 3:06 a.m.'}
+}
+
+При появлении этого сообщения необходимо в блоке:
+body > div > div.block-column.block-column--small > div.page-block.block-chat
+добавить следующего вида кусок кода:
+
+<div class="block-chat__message">
+    <div class="block-chat__msg-first-line">
+        <span class="block-chat__name">Андрей Андреев</span>
+        <span class="block-chat__date">July 1, 2017, 3:06 a.m.</span>
+    </div>
+    <span class="block-chat__text">Текст сообщения</span>
+</div>
+
+начало раунда:
+Если не успеваем, предлагаю просто перезагружать страницу
+{
+    'event':'start_round',
+    'data': {'hangouts_link':'------',
+            'OG':'название команды',
+            'OO':'название команды',
+            'CG':'название команды',
+            'CO':'название команды',
+            'resolution':'ЭП будет копать',
+            'infoslide':'Могу копать могу не копать',
+            'chair':'Крутой Судьяров'}
+}
+
+изменить время начала след раунда
+set_round_starttime
+
+конец раунда:
+Если не успеваем, предлагаю просто разместить форму фидбека на странице
+
+НА СЕРВЕР:
+
+отправить сообщение:
+{
+    'event':'chat',
+    'data':{from:'Андрей Андреев', text':'Текст сообщения'}
+}

@@ -9,36 +9,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
-    <title>Онлайн-турнир</title>
+    <title>Login</title>
 </head>
 
-<div class="jumbotron" style="background-color: inherit">
-    <div class="container">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login:</div>
-                <div class="panel-body">
-                    <form class="form-signin" role="form" action="{% url 'tournament:login' %}" method="post"
-                          enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <label class="sr-only">Username</label>
-                        <input class="form-control" name="username" placeholder="username" required autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control"
-                               placeholder="Password"
-                               required>
-                        <br>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                    </form>
-                </div>
+<body>
+<div class="main-container">
+    <div class="page-block login-container">
+        <h1 class="main-title">Добро пожаловать на <span class="colored-text">
+        Летний онлайн-турнир!
+      </span></h1>
+        <form action="{% url 'tournament:login' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="login-form">
+
+                <label class="input-title" for="login">
+                    Логин:
+                    <input name="username" type="text" id="login" class="form-field login"> </label>
+                <label class="input-title" for="password">
+                    Пароль:
+                    <input name="password" type="password" id="password" class="form-field password"></label>
             </div>
-        </div>
-        <div class="col-md-4"></div>
+            <button type="submit" class="login-button">Войти</button>
+        </form>
     </div>
 </div>
+</body>
 
 </html>

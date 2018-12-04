@@ -10,8 +10,11 @@
     <meta name="user_id" content="{{ current_user.pk }}">
     <meta name="server_page_status" content="{{ page_status }}">
     <meta name="next_round_start_time" content="{{ next_round_start_time }}">
+    <audio id="audio" src="{% static 'Alarm-tone.mp3' %}" autostart="false" ></audio>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{% static 'jquery.cookie.js' %}"></script>
+    <script src="{% static 'common.js' %}"></script>
+    {#    <script src="{% static 'timer.js' %}"></script>#}
     <script src="{% static 'main.js' %}"></script>
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
@@ -23,8 +26,119 @@
 
 <body class="page-container">
 
+{% if current_user.type == 1 %}
+    <div class="modal-window">
+        <div class="modal-content page-block">
+            <h3 class="modal-window__title">Пожалуйста, заполните форму обратной связи на <span class="colored-text">чеира раунда.</span>
+            </h3>
+            <form class="modal-window__form">
+                <div class="modal-window__form-question">
+                    <label class="modal-window__form-label" for="chair-name">Имя судьи:</label> <br>
+                    <input class="modal-window__form-field" type="text" id="chair-name">
+                </div>
+                <div class="modal-window__form-question">
+                    <h4 class="modal-window__form-label">Место в раунде:</h4>
+                    <form>
+                        <input type="radio" name="round-place" value="first">1
+                        <input type="radio" name="round-place" value="second">2
+                        <input type="radio" name="round-place" value="third">3
+                        <input type="radio" name="round-place" value="fourth">4
+                    </form>
+                </div>
+                <div class="modal-window__form-question">
+                    <h4 class="modal-window__form-label">Насколько понятно объяснено решение - почему команды получили
+                        такие
+                        места <br> (объяснение логики принятия решения судьей, сравнение команд между собой, <br> а не
+                        ваше
+                        личное согласие или несогласие с решением)?</h4>
+                    <form>
+                        <input type="radio" name="opinion" value="clear">Полностью понятно
+                        <input type="radio" name="opinion" value="almost-clear">Скорее понятно
+                        <input type="radio" name="opinion" value="not-clear">Скорее не понятно
+                        <input type="radio" name="opinion" value="unclear">Полностью не понятно
+                    </form>
+                </div>
+                <div class="modal-window__form-question">
+                    <h4 class="modal-window__form-label">Насколько полезен был фидбэк (показал ли судья, какие у вас
+                        ошибки
+                        и как их исправить; <br>
+                        что можно было бы еще сказать в этой теме и другие советы)?</h4>
+                    <form>
+                        <input type="radio" name="opinion" value="clear">Полезен
+                        <input type="radio" name="opinion" value="almost-clear">Скорее полезен
+                        <input type="radio" name="opinion" value="not-clear">Скорее не полезен
+                        <input type="radio" name="opinion" value="unclear">Бесполезен
+                    </form>
+                </div>
+                <div class="modal-window__form-question">
+                    <label class="modal-window__form-label" for="comment">Комментарии: <br>
+                        <textarea id="comment" class="modal-window__form-field" name="comment" rows="4"
+                                  cols="80"></textarea></label>
+                </div>
+                <button class="modal-window__form-button" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
 <header class="page-header">
-    <a href="" class="page-header__schedule header-link">Расписание</a>
+
+    <div class="page-header__schedule header-link">Расписание
+        <div class="page-header__schedule-container">
+            <div class="page-header__schedule-item" id="moscow-title">Москва, Минск, Киев, Таллин
+                <div class="page-header__schedule-subitem" id="moscow">
+                    8 июля <br> 9:30-10:00 - брифинг одновременно с регистрацией участников <br> 10:00-12:00 - I раунд
+                    <br> 12:00-14:00 - II раунд <br> 14:00-14:30 – перерыв на обед. <br> 14:30-16:30 - III раунд <br>
+                    16:30 – 18:30 – IV раунд <br>
+                    <br> 9 июля <br> 9:30-10:00 - сбор участников, электронная "перекличка" <br> 10:00-11:30 - V раунд
+                    (закрытый) <br> 11:30-14:00 - полуфинал <br> 14:00-16:30 - финал <br> 16:30-17:00 – награждение и
+                    закрытие турнира
+                </div>
+            </div>
+            <div class="page-header__schedule-item" id="ekb-title">Екатеринбург, Актобе, Таджикистан, Туркменистан,
+                Узбекистан
+                <div class="page-header__schedule-subitem" id="ekb">
+                    8 июля <br> 11:30-12:00 - брифинг одновременно с регистрацией участников <br> 12:00-14:00 - I раунд
+                    <br> 14:00-16:00 - II раунд <br> 16:00-16:30 – перерыв на обед. <br> 16:30-18:30 - III раунд <br>
+                    18:30-20:30 – IV раунд <br>
+                    <br> 9 июля <br> 11:30-12:00 - сбор участников, электронная "перекличка" <br> 12:00-13:30 - V раунд
+                    (закрытый) <br> 13:30-16:00 - полуфинал <br> 16:00-18:30 - финал <br> 18:30-19:00 – награждение и
+                    закрытие турнира <br>
+                </div>
+            </div>
+            <div class="page-header__schedule-item" id="omsk-title">Омск, Астана, Алматы, Кыргызстан
+                <div class="page-header__schedule-subitem" id="omsk">
+                    8 июля <br> 12:30-13:00 - брифинг одновременно с регистрацией участников <br> 13:00-15:00 - I раунд
+                    <br> 15:00-17:00 - II раунд <br> 17:00-17:30 – перерыв на обед. <br> 17:30-19:30 - III раунд <br>
+                    19:30-21:30 – IV раунд <br>
+                    <br> 9 июля <br> 12:30-13:00 - сбор участников, электронная "перекличка" <br> 13:00-14:30 - V раунд
+                    (закрытый) <br> 14:30-17:00 - полуфинал <br> 17:00-19:30 - финал <br> 19:30-20:00 – награждение и
+                    закрытие турнира <br>
+                </div>
+            </div>
+            <div class="page-header__schedule-item" id="nsk-title">Новосибирск, Томск
+                <div class="page-header__schedule-subitem" id="nsk">
+                    8 июля <br> 13:30-14:00 - брифинг одновременно с регистрацией участников <br> 14:00-16:00 - I раунд
+                    <br> 16:00-18:00 - II раунд <br> 18:00-18:30 – перерыв на ужин. <br> 18:30-20:30 - III раунд <br>
+                    20:30-22:30 – IV раунд <br>
+                    <br> 9 июля 13:30-14:00 - сбор участников, электронная "перекличка" <br> 14:00-15:30 - V раунд
+                    (закрытый) <br> 15:30-18:00 - полуфинал <br> 18:00-20:30 - финал <br> 20:30-21:00 – награждение и
+                    закрытие турнира <br>
+                </div>
+            </div>
+            <div class="page-header__schedule-item" id="vdk-title">Владивосток
+                <div class="page-header__schedule-subitem" id="vdk">
+                    8 июля <br> 16:30-17:00 - брифинг одновременно с регистрацией участников <br> 17:00-19:00 - I раунд
+                    <br> 19:00-21:00 - II раунд <br> 21:00-21:30 – перерыв на ужин. <br> 21:30-23:30 - III раунд <br>
+                    23:30-01:30 – IV раунд <br>
+                    <br> 9 июля <br> 16:30-17:00 - сбор участников, электронная "перекличка" <br> 17:00-18:30 - V раунд
+                    (закрытый) <br> 18:30-21:00 - полуфинал <br> 21:00-23:30 - финал <br> 23:30-00:00 – награждение и
+                    закрытие турнира <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="page-header__smoke-rooms-title header-link">Курилки
         <div class="page-header__smoke-room-container">
             {% for k in kurilki %}
@@ -35,40 +149,6 @@
     <div class="page-header__timer">
         <span class="page-header__timer-text">Осталось до начала раунда</span>
         <span class="page-header__timer-watch"></span>
-        <script>
-            // Set the date we're counting down to
-            var countDownDate = new Date("Jan 5, 2018 15:37:25");
-
-            // Update the count down every 1 second
-            var x = setInterval(function () {
-
-                // Get todays date and time
-                var now = new Date();
-
-                // Find the distance between now an the count down date
-                var distance = countDownDate.getTime() - now.getTime();
-
-                // Time calculations for days, hours, minutes and seconds
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                // Display the result
-                // If the count down is finished, write some text
-
-                // TODO: по окончании 15 минут звуковой сигнал
-                // TODO: и установить куку со статусом в значение on_round
-                // TODO: проверять куку состояния!
-                if (distance < 0) {
-                    clearInterval(x);
-                    $(".page-header__timer-watch").text("Раунд вот-вот начнется!")
-                }
-                else {
-                    $(".page-header__timer-watch").text(hours + ":" + minutes + ":" + seconds);
-                    // TODO: сохранять в куку каждые N секунд
-                }
-            }, 1000);
-        </script>
     </div>
 
 
@@ -76,7 +156,7 @@
         <span class="page-header__username-text">{{ current_user }}</span>
         <a href="{% url 'tournament:logout' %}" class="page-header__log-out header-link">(выйти)</a>
     </div>
-    <button class="page-header__room-button">Рум командной подготовки</button>
+    <button class="page-header__room-button"><a href="{{ current_team.hangout_link }}">Рум командной подготовки</a></button>
 
 </header>
 
@@ -120,88 +200,179 @@
     <div class="block-column block-column--big">
 
         <!-- Блок инфы о раунде. -->
-        {% if current_user.type == 1 or current_user.type == 3 %}
+        {% if current_user.type == 1 or current_user.type == 2 %}
             <div class="page-block block-round-info">
-                {% if current_user_rooms %}
-                    <div class="block-round-info__header">
-                        <h2 class="block-round-info__title">Информация о раунде</h2>
-                        {% for room in current_user_rooms %}
-                            {% if room.round.current is True %}
-                                <span class="block-round-info__round-number block-round-info__round-number--active">{{ room.round.number }}</span>
-                            {% else %}
-                                <span class="block-round-info__round-number">{{ room.round.number }}</span>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
+            {% if current_user_rooms %}
+                <div class="block-round-info__header">
+                    <h2 class="block-round-info__title">Информация о раунде</h2>
                     {% for room in current_user_rooms %}
-                        <div class="block-round-info__body">
-                            <div class="block-round-info__table">
-                                <table class="block-round-info__round-table">
-                                    <tr>
-                                        <td class="block-round-info__round-table-cell">
-                                            1П: {{ room.result_set.all.0.team }} | {{ room.result_set.all.0.score }}
-                                            балл(ов)
-                                        </td>
-                                        <td class="block-round-info__round-table-cell">
-                                            1О: {{ room.result_set.all.1.team }} | {{ room.result_set.all.1.score }}
-                                            балл(ов)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="block-round-info__round-table-cell">
-                                            2П: {{ room.result_set.all.2.team }} | {{ room.result_set.all.2.score }}
-                                            балл(ов)
-                                        </td>
-                                        <td class="block-round-info__round-table-cell">
-                                            2О: {{ room.result_set.all.3.team }} | {{ room.result_set.all.3.score }}
-                                            балл(ов)
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="block-round-info__chair">
-                                <h3 class="block-round-info__chair-title">Чеир:</h3>
-                                <!-- Динамические данные. Имя чеира. -->
-                                <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
-                            </div>
-
-                            <div class="block-round-info__motion">
-                                <h3 class="block-round-info__motion-title">Резолюция:</h3>
-                                <!-- Динамические данные. Тема раунда. -->
-                                <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
-                            </div>
-                            <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
-                            {% if round.infoslide %}
-                                <div class="block-round-info__infoslide">
-                                    <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
-
-                                    <!-- Динамические данные. Инфослайд. -->
-                                    <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
-                                </div>
-                            {% endif %}
-                            <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
-                            <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в
-                                рум</a></button>
-                        </div>
+                        {% if room == current_user_rooms.last %}
+                            <span class="block-round-info__round-number block-round-info__round-number--active"
+                                  data-tab="tablink-{{ room.round.number }}">{{ room.round.number }}</span>
+                        {% else %}
+                            <span class="block-round-info__round-number"
+                                  data-tab="tablink-{{ room.round.number }}">{{ room.round.number }}</span>
+                        {% endif %}
                     {% endfor %}
-                {% else %}
+                </div>
 
-                    <div class="block-round-info__header">
-                        <h2 class="block-round-info__title">Информация о раунде</h2>
-                        <div class="block-round-info__header">Скоро здесь появятся ваша позиция, тема раунда и ссылка на
-                            игровой рум.
-                        </div>
+                {% for room in current_user_rooms %}
+                    {% if room == current_user_rooms.last %}
+                        <div class="block-round-info__body block-round-info--active"
+                             id="tablink-{{ room.round.number }}">
+                    {% else %}
+                        <div class="block-round-info__body" id="tablink-{{ room.round.number }}">
+                    {% endif %}
+                <div class="block-round-info__table">
+                    <table class="block-round-info__round-table">
+                        <tr>
+                            <td class="block-round-info__round-table-cell">
+                                1П: {{ room.result_set.all.0.team }} | {{ room.result_set.all.0.score }}
+                                балл(ов)
+                            </td>
+                            <td class="block-round-info__round-table-cell">
+                                1О: {{ room.result_set.all.1.team }} | {{ room.result_set.all.1.score }}
+                                балл(ов)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="block-round-info__round-table-cell">
+                                2П: {{ room.result_set.all.2.team }} | {{ room.result_set.all.2.score }}
+                                балл(ов)
+                            </td>
+                            <td class="block-round-info__round-table-cell">
+                                2О: {{ room.result_set.all.3.team }} | {{ room.result_set.all.3.score }}
+                                балл(ов)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="block-round-info__chair">
+                    <h3 class="block-round-info__chair-title">Чеир:</h3>
+                    <!-- Динамические данные. Имя чеира. -->
+                    <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
+                </div>
+
+                <div class="block-round-info__motion">
+                    <h3 class="block-round-info__motion-title">Резолюция:</h3>
+                    <!-- Динамические данные. Тема раунда. -->
+                    <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
+                </div>
+                <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
+                {% if room.round.infoslide %}
+                    <div class="block-round-info__infoslide">
+                        <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+
+                        <!-- Динамические данные. Инфослайд. -->
+                        <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
                     </div>
-
                 {% endif %}
-            </div>
-        {% elif current_user.type == 2 %}
-            {# TODO: логика для судей! все тоже самое, только проверять наличие игрока, а не судьи #}
+                <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+                {% if room.round == tournament.current_round %}
+                    <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в
+                        рум</a></button>
+                {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
 
-            {# {% elif current_user.type == 3 %} #}
-                {# TODO: кнопки для админа: обновить время начала, стартовать раунд, #}
-                {# TODO: (фидбек будет вызываться при сохранениии результатов раунда) #}
+                <div class="block-round-info__header">
+                    <h2 class="block-round-info__title">Информация о раунде</h2>
+                    <div class="block-round-info__header">Скоро здесь появятся ваша позиция, тема раунда и ссылка на
+                        игровой рум.
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+
+        {% elif current_user.type == 3 %}
+            {# TODO: кнопки для админа: обновить время начала, стартовать раунд, #}
+            {# TODO: (фидбек будет вызываться при сохранениии результатов раунда) #}
+
+
+            <div class="page-block block-round-info">
+            {% if current_user_rooms %}
+                <div class="block-round-info__header">
+                    <h2 class="block-round-info__title">Информация о раунде</h2>
+                    {% for room in current_user_rooms %}
+                        {% if room == current_user_rooms.last %}
+                            <span class="block-round-info__round-number block-round-info__round-number--active"
+                                  data-tab="tablink-{{ room.round.number }}">{{ room.round.number }}</span>
+                        {% else %}
+                            <span class="block-round-info__round-number"
+                                  data-tab="tablink-{{ room.round.number }}">{{ room.round.number }}</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% for room in current_user_rooms %}
+                    {% if room == current_user_rooms.last %}
+                        <div class="block-round-info__body block-round-info--active"
+                             id="tablink-{{ room.round.number }}">
+                    {% else %}
+                        <div class="block-round-info__body" id="tablink-{{ room.round.number }}">
+                    {% endif %}
+                <div class="block-round-info__table">
+                    <table class="block-round-info__round-table">
+                        <tr>
+                            <td class="block-round-info__round-table-cell">
+                                1П: {{ room.result_set.all.0.team }}{% if room.result_set.all.0.score or room.result_set.all.0.score is 0 %} | {{ room.result_set.all.0.score }} балл(а){% endif %}
+                            </td>
+                            <td class="block-round-info__round-table-cell">
+                                1О: {{ room.result_set.all.1.team }}{% if room.result_set.all.1.score or room.result_set.all.1.score is 0 %} | {{ room.result_set.all.1.score }} балл(а){% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="block-round-info__round-table-cell">
+                                2П: {{ room.result_set.all.2.team }}{% if room.result_set.all.2.score or room.result_set.all.2.score is 0 %} | {{ room.result_set.all.2.score }} балл(а){% endif %}
+                            </td>
+                            <td class="block-round-info__round-table-cell">
+                                2О: {{ room.result_set.all.3.team }}{% if room.result_set.all.3.score or room.result_set.all.3.score is 0 %} | {{ room.result_set.all.3.score }} балл(а){% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="block-round-info__chair">
+                    <h3 class="block-round-info__chair-title">Чеир:</h3>
+                    <!-- Динамические данные. Имя чеира. -->
+                    <h4 class="block-round-info__chair-name">{{ room.chair }}</h4>
+                </div>
+
+                <div class="block-round-info__motion">
+                    <h3 class="block-round-info__motion-title">Резолюция:</h3>
+                    <!-- Динамические данные. Тема раунда. -->
+                    <h4 class="block-round-info__motion-info">{{ room.round.resolution }}</h4>
+                </div>
+                <!-- Блок инфослайда не обязательный. Прописать условие - отображается, если есть инфослайд. -->
+                {% if room.round.infoslide %}
+                    <div class="block-round-info__infoslide">
+                        <h3 class="block-round-info__infoslide-title">Инфослайд:</h3>
+
+                        <!-- Динамические данные. Инфослайд. -->
+                        <h4 class="block-round-info__infoslide-text">{{ room.round.infoslide }}</h4>
+                    </div>
+                {% endif %}
+                <!-- Кнопка входа в рум - ссылка на комнату хэнгаут. -->
+                {% if room.round == tournament.current_round %}
+                    <button class="block-round-info__room-button"><a href="{{ room.hangout_link }}">Войти в
+                        рум</a></button>
+                {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+
+                <div class="block-round-info__header">
+                    <h2 class="block-round-info__title">Информация о раунде</h2>
+                    <div class="block-round-info__header">Скоро здесь появятся ваша позиция, тема раунда и ссылка на
+                        игровой рум.
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+
+
 
         {% endif %}
 
@@ -228,18 +399,18 @@
                         {% else %}
                             <td class="block-tab__table-cell">{{ str.0 }}</td>
                         {% endif %}
-                        <td class="block-tab__table-cell">{{ str.1 }}</td>
-                        <td class="block-tab__table-cell">{{ str.2 }}</td>
-                        <td class="block-tab__table-cell">{{ str.3 }}</td>
-                        <td class="block-tab__table-cell">{{ str.4 }}</td>
-                        <td class="block-tab__table-cell">{{ str.5 }}</td>
-                        <td class="block-tab__table-cell">{{ str.6 }}</td>
+                        <td class="block-tab__table-cell">{% if str.1 or str.1 is 0 %}{{ str.1 }}{% else %} - {% endif %}</td>
+                        <td class="block-tab__table-cell">{% if str.2 or str.2 is 0 %}{{ str.2 }}{% else %} - {% endif %}</td>
+                        <td class="block-tab__table-cell">{% if str.3 or str.3 is 0 %}{{ str.3 }}{% else %} - {% endif %}</td>
+                        <td class="block-tab__table-cell">{% if str.4 or str.4 is 0 %}{{ str.4 }}{% else %} - {% endif %}</td>
+                        <td class="block-tab__table-cell">{% if str.5 or str.5 is 0 %}{{ str.5 }}{% else %} - {% endif %}</td>
+                        <td class="block-tab__table-cell">{% if str.6 or str.6 is 0 %}{{ str.6 }}{% else %} - {% endif %}</td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
-    </div>
-</div>
+        </div>
+        </div>
 </body>
 
 </html>

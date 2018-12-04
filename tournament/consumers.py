@@ -1,16 +1,14 @@
 import json
-import datetime
-from urllib import parse
 import logging
 
 from channels import Group
 from channels.sessions import channel_session
-from .models import ChatMessage,Player
+from .models import ChatMessage, Player
 
 
 @channel_session
 def ws_connect(message, room):
-    logging.info('Adding websocket in room %s',room)
+    logging.info('Adding websocket in room %s', room)
     Group('chat-%s' % room).add(message.reply_channel)
     message.channel_session['room'] = room
     message.reply_channel.send({'accept': True})
@@ -24,7 +22,6 @@ def ws_echo(message):
     content = json.loads(content)
 
     if content['event'] == 'chat':
-
         msg_from = Player.objects.get(pk=content['data']['from_id'])
         text = content['data']['text']
 
@@ -35,11 +32,12 @@ def ws_echo(message):
         # send message
         Group('chat-%s' % room).send({
             'text': json.dumps({
-                'event':'chat',
+                'event': 'chat',
                 'data': {
-                    'from_name':msg_from.name,
-                    'from_id':msg_from.pk,
-                    'text':text,
-                    'time':str(cm.time), },}),})
-
-
+                    'from_name': msg_from.name,
+                    'from_id': msg_from.pk,
+                    'text': text,
+                    'time': str(cm.time),
+                },
+            }),
+        })
